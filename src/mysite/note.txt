@@ -1,0 +1,19 @@
+1. run django server
+manage.py runserver 0.0.0.0:8000
+
+2. upload static files. 
+setting.py
+set IsNeedToUploadToS3 to True then use "manage.py collectstatic" to upload your static files to s3 automatically.
+Don't forget to turn it off when finish uploading and runserver again.
+
+3. upload backend code.
+use steps below to upload new code to beanstalk.
+# git add .
+# git commit -m "your comments"
+# git aws.push
+# eb status --verbose
+
+
+
+Note:
+remember to remove the setting (WSGI) "WSGIPath=application.py" in "\.elasticbeanstalk\optionsettings"

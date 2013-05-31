@@ -1,0 +1,16 @@
+{% extends "foo/base.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block body_container %}
+	{% if errors %}
+        <div class="alert alert-error">
+  			<button type="button" class="close" data-dismiss="alert">&times;</button>
+  			<strong>Error!</strong> {{errors}}
+		</div>
+    {% endif %}
+	<form class="form-search pull-right" action="" method="get">
+        <input type="text" name="q">
+        <button type="submit" class="btn">Search</button>
+    </form>
+{% endblock %}

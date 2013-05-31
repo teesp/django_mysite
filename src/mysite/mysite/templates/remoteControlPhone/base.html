@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% load staticfiles %}
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--
+		reset.css
+		-->
+		<link href="{% static "common/css/reset.css" %}" rel="stylesheet" type="text/css">
+
+		<!--
+		jquery
+		-->
+		<script type="text/javascript" src="{% static "jquery/js/jquery-1.9.1.min.js" %}"></script>
+		
+		<!--
+			moment.js
+		-->
+		<script type="text/javascript" src="{% static "moment/js/moment.min.js" %}"></script>
+
+		<!--
+		bootstrap
+		-->
+		<link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" media="screen">
+		<link href="{% static "bootstrap/css/bootstrap-responsive.min.css" %}" rel="stylesheet" type="text/css" media="screen">
+		<script type="text/javascript" src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+		<script type="text/javascript" src="{% static "remoteControlPhone/js/Util.js" %}"></script>
+		<script type="text/javascript" src="{% static "remoteControlPhone/js/Initialize.js" %}"></script>
+
+		<!--
+		resources of ourself
+		-->
+		<link href="{% static "remoteControlPhone/css/base.css" %}" rel="stylesheet" type="text/css">
+		<link href="{% static "remoteControlPhone/css/framework.css" %}" rel="stylesheet" type="text/css">
+		<link href="{% static "remoteControlPhone/css/content.css" %}" rel="stylesheet" type="text/css">
+		<link rel="shortcut icon" href="{% static "remoteControlPhone/img/RemotePhone.ico" %}" type="image/x-icon"> 
+		
+		<title>{% block title %}{% endblock %}</title>
+	</head>
+	<body>
+		<div id="wrap">
+			<!-- Fixed navbar -->
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner">
+					<div class="container">
+						<a class="brand" href="/remoteControlPhone/">Remote Phone</a>
+						<div class="nav-collapse collapse">
+							<ul class="nav">
+								<li class="active">
+									<a href="#">Home</a>
+								</li>
+								<li>
+									<a href="#about">About</a>
+								</li>
+							</ul>
+						</div><!--/.nav-collapse -->
+
+						{% if user.is_authenticated %}
+						<ul class="nav pull-right">
+							<li>
+								<a class="user_area dropdown-toggle" data-toggle="dropdown"> <img class="img_face pull-left" src="{% static "remoteControlPhone/img/face.png" %}"/>{{ user.username }}</a>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+									<li>
+										<a tabindex="-1" href="#">Setting</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a tabindex="-1" href="{% url django.contrib.auth.views.logout %}">Sign out</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<div class="container">
+				{% block container %}
+				<p>
+					Here is the content
+				</p>
+				{% endblock %}
+			</div>
+
+		</div>
+		<div id="footer">
+			{% block footer %}
+			<div class="container">
+				<p class="muted credit pull-right">
+					Footer
+				</p>
+			</div>
+			{% endblock %}
+		</div>
+	</body>
+</html>

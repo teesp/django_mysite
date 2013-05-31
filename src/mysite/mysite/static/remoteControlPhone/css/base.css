@@ -1,0 +1,402 @@
+html {
+	font-family: "arial";
+}
+
+.btn_red {
+	text-align: center;
+	color: #FFFFFF;
+	border-radius: 5px 5px 5px 5px;
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	border: solid #b32028 1px;
+	/*
+	 background
+	 */
+	background: linear-gradient(#e44e56, #db3d44);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e44e56', endColorstr='#db3d44'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#e44e56), to(#db3d44)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #e44e56,  #db3d44); /* for firefox 3.6+ */
+	box-shadow: -1px 0 0 0 rgba(0,0,0,.06), inset 0 1px 0 0 rgba(255,255,255,.14), inset 0 0 0 1px rgba(255,255,255,.14);
+	text-shadow: 0px -1px rgba(0,0,0,.4);
+	letter-spacing: -.02em;
+	cursor: pointer;
+}
+
+.btn_red:hover {
+	/*
+	 background
+	 */
+	background: linear-gradient(#ee5e64, #db3d44);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee5e64', endColorstr='#db3d44'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5e64), to(#db3d44)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #ee5e64,  #db3d44); /* for firefox 3.6+ */
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,3), inset 0 1px 0 0 rgba(255,255,255,.14), inset 0 0 0 1px rgba(255,255,255,.14);
+}
+
+.btn_red:active {
+	background: #db3d44;
+	box-shadow: inset 0 0 0 0 rgba(0,0,0,0), inset 0 0 0 0 rgba(0,0,0,0);
+}
+
+.btn_blue {
+	text-align: center;
+	color: #FFFFFF;
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	height: auto;
+	border: solid #006699 1px;
+	border-radius: 5px;
+	/*
+	 background
+	 */
+	background: linear-gradient(#3399cc, #2a87c3);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3399cc', endColorstr='#2a87c3'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#3399cc), to(#2a87c3)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #3399cc,  #2a87c3); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,.13), inset 0 0 0 1px rgba(255,255,255,.13);
+	text-shadow: 0px -1px rgba(0,0,0,.4);
+	letter-spacing: -.02em;
+	cursor: pointer;
+}
+
+.btn_blue:hover {
+	/*
+	 background
+	 */
+	background: linear-gradient(#47a3d1, #2a87c3);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#47a3d1', endColorstr='#2a87c3'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#47a3d1), to(#2a87c3));/* for webkit browsers */
+	background: -moz-linear-gradient(top,  #47a3d1,  #2a87c3); /* for firefox 3.6+ */
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,3), inset 0 1px 0 0 rgba(255,255,255,.13), inset 0 0 0 1px rgba(255,255,255,.13);
+}
+
+.btn_blue:active {
+	background: #2a87c3;
+	box-shadow: inset 0 0 0 0 rgba(0,0,0,0), inset 0 0 0 0 rgba(0,0,0,0);
+}
+
+.button_disabled_blue {
+	/*
+	 background
+	 */
+	background: linear-gradient(#3399cc, #2a87c3);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3399cc', endColorstr='#2a87c3'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#3399cc), to(#2a87c3)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #3399cc,  #2a87c3); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,.13), inset 0 0 0 1px rgba(255,255,255,.13);
+}
+
+.button_disabled_blue:hover {
+	/*
+	 background
+	 */
+	background: linear-gradient(#3399cc, #2a87c3);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3399cc', endColorstr='#2a87c3'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#3399cc), to(#2a87c3)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #3399cc,  #2a87c3); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,.13), inset 0 0 0 1px rgba(255,255,255,.13);
+}
+
+.button_disabled_blue:active {
+	/*
+	 background
+	 */
+	background: linear-gradient(#3399cc, #2a87c3);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3399cc', endColorstr='#2a87c3'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#3399cc), to(#2a87c3)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #3399cc,  #2a87c3); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,.13), inset 0 0 0 1px rgba(255,255,255,.13);
+}
+
+.btn_silver_inline_div {
+	border-radius: 5px;
+	border: solid #BBBBBB 1px;
+	text-shadow: 0px 1px 0px rgba(255,255,255,1);
+	/*
+	 background
+	 */
+	background: linear-gradient(#F5F5F5, #EBEBEB);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F5F5F5', endColorstr='#EBEBEB'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#F5F5F5), to(#EBEBEB)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #F5F5F5,  #EBEBEB); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,1), inset 0 0 0 1px rgba(255,255,255,5);
+	cursor: pointer;
+}
+
+.btn_silver_inline_div:hover {
+	border: solid #A5A5A5 1px;
+	/*
+	 background
+	 */
+	background: linear-gradient(#F7F7F7, #EDEDED);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F7F7F7', endColorstr='#EDEDED'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#F7F7F7), to(#EDEDED)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #F7F7F7,  #EDEDED); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,1), inset 0 0 0 1px rgba(255,255,255,5);
+}
+
+.btn_silver_inline_div:active {
+	background: #EBEBEB 1px;
+	border: solid #BBBBBB 1px;
+	box-shadow: inset 0 0 0 0 rgba(0,0,0,0), inset 0 0 0 0 rgba(0,0,0,0);
+}
+
+.button_disabled_silver_inline {
+	border: solid #BBBBBB 1px;
+	/*
+	 background
+	 */
+	background: linear-gradient(#F5F5F5, #EBEBEB);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F5F5F5', endColorstr='#EBEBEB'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#F5F5F5), to(#EBEBEB)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #F5F5F5,  #EBEBEB); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,1), inset 0 0 0 1px rgba(255,255,255,5);
+}
+
+.button_disabled_silver_inline:hover {
+	border: solid #BBBBBB 1px;
+	/*
+	 background
+	 */
+	background: linear-gradient(#F5F5F5, #EBEBEB);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F5F5F5', endColorstr='#EBEBEB'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#F5F5F5), to(#EBEBEB)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #F5F5F5,  #EBEBEB); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,1), inset 0 0 0 1px rgba(255,255,255,5);
+}
+
+.button_disabled_silver_inline:active {
+	border: solid #BBBBBB 1px;
+	/*
+	 background
+	 */
+	background: linear-gradient(#F5F5F5, #EBEBEB);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F5F5F5', endColorstr='#EBEBEB'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#F5F5F5), to(#EBEBEB)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #F5F5F5,  #EBEBEB); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,1), inset 0 0 0 1px rgba(255,255,255,5);
+}
+
+.btn_silver {
+	text-align: center;
+	color: #000000;
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	height: auto;
+	border-radius: 5px;
+	border: solid #BBBBBB 1px;
+	text-shadow: 0px 1px 0px rgba(255,255,255,1);
+	/*
+	 background
+	 */
+	background: linear-gradient(#F5F5F5, #EBEBEB);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F5F5F5', endColorstr='#EBEBEB'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#F5F5F5), to(#EBEBEB)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #F5F5F5,  #EBEBEB); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,1), inset 0 0 0 1px rgba(255,255,255,5);
+	cursor: pointer;
+}
+
+.btn_silver:hover {
+	border: solid #A5A5A5 1px;
+	/*
+	 background
+	 */
+	background: linear-gradient(#F7F7F7, #EDEDED);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F7F7F7', endColorstr='#EDEDED'); /* for IE */
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#F7F7F7), to(#EDEDED)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #F7F7F7,  #EDEDED); /* for firefox 3.6+ */
+	box-shadow: inset 0 1px 0 0 rgba(255,255,255,1), inset 0 0 0 1px rgba(255,255,255,5);
+}
+
+.btn_silver:active {
+	background: #EBEBEB 1px;
+	border: solid #BBBBBB 1px;
+	box-shadow: inset 0 0 0 0 rgba(0,0,0,0), inset 0 0 0 0 rgba(0,0,0,0);
+}
+
+/*
+	loading animiation start
+*/
+.spinningSquaresGWrapper {
+	position: relative;
+	width: 240px;
+	height: 30px
+}
+
+.spinningSquaresG {
+	position: absolute;
+	top: 0;
+	background-color: #382C38;
+	width: 29px;
+	height: 29px;
+	-moz-animation-name: bounce_spinningSquaresG;
+	-moz-animation-duration: 1.6s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-direction: linear;
+	-moz-transform: scale(.3);
+	-webkit-animation-name: bounce_spinningSquaresG;
+	-webkit-animation-duration: 1.6s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction: linear;
+	-webkit-transform: scale(.3);
+	-ms-animation-name: bounce_spinningSquaresG;
+	-ms-animation-duration: 1.6s;
+	-ms-animation-iteration-count: infinite;
+	-ms-animation-direction: linear;
+	-ms-transform: scale(.3);
+	-o-animation-name: bounce_spinningSquaresG;
+	-o-animation-duration: 1.6s;
+	-o-animation-iteration-count: infinite;
+	-o-animation-direction: linear;
+	-o-transform: scale(.3);
+	animation-name: bounce_spinningSquaresG;
+	animation-duration: 1.6s;
+	animation-iteration-count: infinite;
+	animation-direction: linear;
+	transform: scale(.3);
+}
+
+.spinningSquaresG_1 {
+	left: 0;
+	-moz-animation-delay: 0.64s;
+	-webkit-animation-delay: 0.64s;
+	-ms-animation-delay: 0.64s;
+	-o-animation-delay: 0.64s;
+	animation-delay: 0.64s;
+}
+
+.spinningSquaresG_2 {
+	left: 30px;
+	-moz-animation-delay: 0.8s;
+	-webkit-animation-delay: 0.8s;
+	-ms-animation-delay: 0.8s;
+	-o-animation-delay: 0.8s;
+	animation-delay: 0.8s;
+}
+
+.spinningSquaresG_3 {
+	left: 60px;
+	-moz-animation-delay: 0.96s;
+	-webkit-animation-delay: 0.96s;
+	-ms-animation-delay: 0.96s;
+	-o-animation-delay: 0.96s;
+	animation-delay: 0.96s;
+}
+
+.spinningSquaresG_4 {
+	left: 90px;
+	-moz-animation-delay: 1.12s;
+	-webkit-animation-delay: 1.12s;
+	-ms-animation-delay: 1.12s;
+	-o-animation-delay: 1.12s;
+	animation-delay: 1.12s;
+}
+
+.spinningSquaresG_5 {
+	left: 120px;
+	-moz-animation-delay: 1.28s;
+	-webkit-animation-delay: 1.28s;
+	-ms-animation-delay: 1.28s;
+	-o-animation-delay: 1.28s;
+	animation-delay: 1.28s;
+}
+
+.spinningSquaresG_6 {
+	left: 150px;
+	-moz-animation-delay: 1.44s;
+	-webkit-animation-delay: 1.44s;
+	-ms-animation-delay: 1.44s;
+	-o-animation-delay: 1.44s;
+	animation-delay: 1.44s;
+}
+
+.spinningSquaresG_7 {
+	left: 180px;
+	-moz-animation-delay: 1.6s;
+	-webkit-animation-delay: 1.6s;
+	-ms-animation-delay: 1.6s;
+	-o-animation-delay: 1.6s;
+	animation-delay: 1.6s;
+}
+
+.spinningSquaresG_8 {
+	left: 210px;
+	-moz-animation-delay: 1.76s;
+	-webkit-animation-delay: 1.76s;
+	-ms-animation-delay: 1.76s;
+	-o-animation-delay: 1.76s;
+	animation-delay: 1.76s;
+}
+
+@-moz-keyframes bounce_spinningSquaresG{
+0%{
+-moz-transform:scale(1);
+background-color:#382C38;
+}
+
+100%{
+-moz-transform:scale(.3) rotate(90deg);
+background-color:#290629;
+}
+
+}
+
+@-webkit-keyframes bounce_spinningSquaresG{
+0%{
+-webkit-transform:scale(1);
+background-color:#382C38;
+}
+
+100%{
+-webkit-transform:scale(.3) rotate(90deg);
+background-color:#290629;
+}
+
+}
+
+@-ms-keyframes bounce_spinningSquaresG{
+0%{
+-ms-transform:scale(1);
+background-color:#382C38;
+}
+
+100%{
+-ms-transform:scale(.3) rotate(90deg);
+background-color:#290629;
+}
+
+}
+
+@-o-keyframes bounce_spinningSquaresG{
+0%{
+-o-transform:scale(1);
+background-color:#382C38;
+}
+
+100%{
+-o-transform:scale(.3) rotate(90deg);
+background-color:#290629;
+}
+
+}
+
+@keyframes bounce_spinningSquaresG{
+0%{
+transform:scale(1);
+background-color:#382C38;
+}
+
+100%{
+transform:scale(.3) rotate(90deg);
+background-color:#290629;
+}
+
+}
+
+/*
+	loading animiation end
+*/

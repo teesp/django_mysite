@@ -1,0 +1,88 @@
+{% extends "remoteControlPhone/base.html" %}
+
+{% block title %}Remote Phone{% endblock %}
+
+{% block container %}
+
+{% load staticfiles %}
+{% load timetags %}
+<ul class="breadcrumb">
+	<li>
+		<a href="/remoteControlPhone/">{{user.username}}</a><span class="divider">/</span>
+	</li>
+	<li class="active">
+		{{userDevice.device.model}}
+	</li>
+</ul>
+
+<div class="well">
+	<div class="tabbable">
+		<!-- Only required for left/right tabs -->
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a href="#tab1" data-toggle="tab">Call Records</a>
+			</li>
+			<li>
+				<a href="#tab2" data-toggle="tab">Messages</a>
+			</li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab1">
+				<div class='updateStatusArea'>
+					<button class='btn btn-success updateStatusButton'>
+						Refresh
+					</button>
+					{% if calllogs %}
+					<p class="updateStatusWording">
+						Last Update: {{calllogs.0.date_created|print_timestamp_seconds }}
+					</p>
+					{% else %}
+					<p class="updateStatusWording">
+						You don't have any call logs yet, click the refresh to get latest data.
+					</p>
+					{% endif %}
+					<div class="loadingAnimation"></div>
+				</div>
+
+				<div class="dataArea">
+
+					<div class="span10">
+						<table class="table table-bordered table-hover table-striped table_callLogs">
+							<tr class="tr_callLogs">
+								<th>Call</th>
+								<th>date</th>
+								<th>duration(seconds)</th>
+								<th>number</th>
+								<th>action</th>
+							</tr>
+							{% for callLog in calllogs %}
+							<tr>
+<!-- 								<td>{{callLog.type}}</td> -->
+								<td>
+									{% if callLog.type == "1" %}
+										<div class="ICON_incomingCall"></div>
+									{% elif callLog.type == "2" %}
+										<div class="ICON_outcomingCall"></div>
+									{% elif callLog.type == "3" %}
+										<div class="ICON_missingCall"></div>
+									{% endif%}
+								</td>
+								<td>{{callLog.date|print_timestamp_milliseconds }}</td>
+								<td>{{callLog.duration}}</td>
+								<td>{{callLog.number}}</td>
+								<td>
+									<div class="ICON_sendSMS"></div>
+									<div class="ICON_delete"></div>
+								</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane" id="tab2"></div>
+
+		</div>
+	</div>
+</div>
+{% endblock %}

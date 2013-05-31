@@ -1,0 +1,40 @@
+{% extends "foo/base.html" %}
+
+{% block title %}Contact us{% endblock %}
+
+{% block body_container %}
+
+{% if errors %}
+<ul>
+	{% for error in errors %}
+	<li>
+		{{ error }}
+	</li>
+	{% endfor %}
+</ul>
+{% endif %}
+
+<form action="/foo/contact/" method="post">
+	<fieldset>
+		<legend>
+			Contact us
+		</legend>
+		<label>Subject:</label>
+		<input type="text" name="subject" placeholder="Type something…">
+
+		<label>Your e-mail (optional):</label>
+		<input type="text" name="email" placeholder="Type something…">
+
+		<label>Message: </label>
+		<textarea name="message" rows="3"></textarea>				
+
+		<p>
+			<button type="submit" class="btn">
+				Submit
+			</button>
+		</p>
+	</fieldset>
+
+</form>
+
+{% endblock %}
