@@ -28,6 +28,36 @@
             error : error
         });
     }
-
+    
+    window.GetMessages = function(success, error) {
+        $.ajax({
+            type : "GET",
+            url : '/remoteControlPhone/get_fromJS/messages/',
+            data : null,
+            dataType : "html",
+            success : function(data) {
+                console.log(data)
+                success(data)
+            },
+            error : error
+        });
+    }
+    
+    window.GetContacts = function(success, error) {
+        $.ajax({
+            type : "GET",
+            url : '/remoteControlPhone/get_fromJS/contacts/',
+            data : null,
+            dataType : "html",
+            success : function(data) {
+                console.log(data)
+                success(data)
+            },
+            error : error
+        });
+    }
+    
+    window.checkTimeInterval = 4000;
+    window.checkMaxTimes = 10;
 })();
 

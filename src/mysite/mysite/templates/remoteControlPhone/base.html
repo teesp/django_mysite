@@ -26,7 +26,9 @@
 		<script type="text/javascript" src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
 		<script type="text/javascript" src="{% static "remoteControlPhone/js/Util.js" %}"></script>
 		<script type="text/javascript" src="{% static "remoteControlPhone/js/Initialize.js" %}"></script>
-
+		<script type="text/javascript" src="{% static "remoteControlPhone/js/InitializeContact.js" %}"></script>
+		<script type="text/javascript" src="{% static "remoteControlPhone/js/InitializeMessage.js" %}"></script>
+		
 		<!--
 		resources of ourself
 		-->
@@ -65,7 +67,7 @@
 									</li>
 									<li class="divider"></li>
 									<li>
-										<a tabindex="-1" href="{% url django.contrib.auth.views.logout %}">Sign out</a>
+										<a tabindex="-1" href="{% url 'django.contrib.auth.views.logout' %}">Sign out</a>
 									</li>
 								</ul>
 							</li>

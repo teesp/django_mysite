@@ -28,8 +28,8 @@
         InitializeEvent()
     })
     function InitializeGlobalVariable() {
-        GetCallLogs(function(data) {
-            callLogsGlobal = $.parseJSON(data);
+        GetMessages(function(data) {
+            messagesGlobal = $.parseJSON(data);
         })
     }
 
@@ -40,14 +40,14 @@
     }
 
 
-    window.callLogsGlobal = null;
+    window.messagesGlobal = null;
     window.checkTimeInterval = 4000;
     window.checkMaxTimes = 10;
 
     function Initialize() {
-        var updateStatusButton = $('#tab1 .updateStatusButton');
-        var updateStatusWording = $('#tab1 .updateStatusWording');
-        var updateStatusloadingAnimation = $('#tab1 .loadingAnimation');
+        var updateStatusButton = $('#tab3 .updateStatusButton');
+        var updateStatusWording = $('#tab3 .updateStatusWording');
+        var updateStatusloadingAnimation = $('#tab3 .loadingAnimation');
 
         updateStatusButton.click(function() {
             updateStatusWording.text("Send Request to Google Cloud");
@@ -61,7 +61,7 @@
                 CheckDataUpdated(0);
             }, function() {
                 console.error("Send message to GCM encounter error");
-            }, "push_call_log")
+            }, "push_sms")
         })
         function CheckDataUpdated(currentTry) {
             currentTry++;
@@ -73,37 +73,23 @@
             }
 
             setTimeout(function() {
-                GetCallLogs(function(data) {
+                GetMessages(function(data) {
                     // check if the data has updated by comparing the timestamp.
                     var jsonData = $.parseJSON(data)
-                    if (jsonData.length > 0 && ((callLogsGlobal == null || callLogsGlobal.length == 0) || parseFloat(jsonData[0].date_created) > parseFloat(callLogsGlobal[0].date_created))) {
-                        callLogsGlobal = jsonData;
+                    if (jsonData.length > 0 && ((messagesGlobal == null || messagesGlobal.length == 0) || parseFloat(jsonData[0].date_created) > parseFloat(messagesGlobal[0].date_created))) {
+                        messagesGlobal = jsonData;
                         updateStatusWording.text("Last Update: " + convertUnixTimeSecondsToString(jsonData[0].date_created));
                         updateStatusButton.attr("disabled", false);
                         updateStatusloadingAnimation.hide();
 
-                        $('.table_callLogs tr[class!="tr_callLogs"]').remove();
-                        var nodeParent = $('.table_callLogs')
+                        $('.table_messages tr[class!="tr_messages"]').remove();
+                        var nodeParent = $('.table_messages')
 			var i = 0;
                         for (; i < jsonData.length; i++) {
                             var tr = $('<tr/>', {
                             
                             });
-                            
-                            var type = $('<td/>', {
-                            
-                            }).append($('<div/>', {
-                                "class" : (function(){
-                                    if(jsonData[i].type == 1){
-                                        return "ICON_incomingCall"
-                                    }else if(jsonData[i].type == 2){
-                                        return "ICON_outcomingCall"
-                                    }else if(jsonData[i].type == 3){
-                                        return "ICON_missingCall"
-                                    }
-                                })()
-                            }))
-                            
+
                             var action = $('<td/>', {
                             
                             }).append($('<div/>', {
@@ -112,12 +98,12 @@
                                 "class" : "ICON_delete"
                             }))
                             
-                            tr.append(type).append($('<td/>', {
+                            tr.append($('<td/>', {
                                 text : convertUnixTimeMilliSecondsToString(jsonData[i].date)
                             })).append($('<td/>', {
-                                text : jsonData[i].duration
+                                text : jsonData[i].body
                             })).append($('<td/>', {
-                                text : jsonData[i].number
+                                text : jsonData[i].address
                             })).append(action)
                             
                             nodeParent.append(tr)
@@ -155,10 +141,10 @@
         // return new Date(parseInt(unixTime) * 1000).toTimeString()
     }
 
-    window.GetCallLogs = function(success, error) {
+    window.GetMessages = function(success, error) {
         $.ajax({
             type : "GET",
-            url : '/remoteControlPhone/get_fromJS/calllogs/',
+            url : '/remoteControlPhone/get_fromJS/messages/',
             data : null,
             dataType : "html",
             success : function(data) {

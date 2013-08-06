@@ -1,4 +1,5 @@
 # Create your views here.
+# coding=utf-8
 from django.template.loader import get_template
 from django.template import Context
 from django.shortcuts import render_to_response
@@ -16,6 +17,8 @@ from remoteControlPhone.models import UserDevice
 from remoteControlPhone.models import Contacts
 from remoteControlPhone.models import CallLogs
 from remoteControlPhone.models import PushRegistration
+from remoteControlPhone.models import Messages
+
 from django.contrib import auth
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
@@ -24,6 +27,8 @@ from django.template import Context, loader
 from django.contrib.auth import authenticate, login
 
 import urllib2
+import urllib
+import httplib
 from django.utils import timezone
 
 import datetime
@@ -141,8 +146,10 @@ def device(request, uniqueID):
         return ReturnDeviceNotMatchYou()
 
     calllogs = CallLogs.objects.filter(device=Device.objects.get(uniqueID=uniqueID))
+    contacts = Contacts.objects.filter(device=Device.objects.get(uniqueID=uniqueID))    
+    messages = Messages.objects.filter(device=Device.objects.get(uniqueID=uniqueID))
     
-    response = render_to_response('remoteControlPhone/device.html', {'user' : request.user, 'userDevice': userDevices[0], 'calllogs': calllogs})
+    response = render_to_response('remoteControlPhone/device.html', {'user' : request.user, 'userDevice': userDevices[0], 'calllogs': calllogs, 'contacts':contacts, 'messages':messages})
     response.set_cookie('username', request.user.username)
     response.set_cookie('uniqueID', userDevices[0].device.uniqueID) 
     return response
@@ -204,7 +211,186 @@ def push_forMobile_calllogs(request):
             return ReturnPushFromMobileCallLogsException()
     else:
         return ReturnPushFromMobileCallLogsException()
+    
+def getContacts_fromJS(request):
+    uniqueID = request.COOKIES.get('uniqueID')
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/remoteControlPhone/accounts/login')
+    
+    try:
+        userDevices = UserDevice.objects.filter(user=User.objects.get(username=request.user.username), device=Device.objects.get(uniqueID=uniqueID))
+    except:
+        return ReturnDeviceNotMatchYou()
+    
+    if len(userDevices) == 0:
+        return ReturnDeviceNotMatchYou()
+    
+    contacts = Contacts.objects.filter(device=Device.objects.get(uniqueID=uniqueID))
+    strList = []
+    for item in contacts:
+        strObj = {}
+        strObj["date_created"] = item.date_created;
+        strObj["name"] = item.name;
+        strObj["phoneno"] = item.phone_No;
+        strList.append(strObj)
+    return HttpResponse(jason.dumps(strList))
        
+def push_forMobile_contacts(request):
+#    pdb.set_trace()
+    if request.method == 'POST':
+        try:
+            dataStr = request.body
+            dataObj = jason.loads(dataStr)
+            
+#            check whether this device exists in current database
+            guid = dataObj['uniqueID']
+            
+            _device = Device.objects.filter(uniqueID=guid)
+            if not _device:
+                return ReturnPushFromMobileCallLogsDontHaveThisDevice()
+            
+            previousContacts = Contacts.objects.filter(device__uniqueID=guid)
+            if previousContacts:
+                previousContacts.delete()
+
+            for contact in dataObj['contacts']:
+                name = urllib2.unquote(contact['name'].replace("+", "%20")).decode("utf8")
+                number = contact['phoneno']
+                
+                _contact = Contacts(device=Device.objects.get(uniqueID=guid), name=name, phone_No=number, date_created=getCurrentUnixTimeStamp())
+                _contact.save()
+            
+            return ReturnOK()
+        except:
+            return ReturnPushFromMobileContactsException()
+    else:
+        return ReturnPushFromMobileContactsException()     
+    
+def getMessages_fromJS(request):
+    uniqueID = request.COOKIES.get('uniqueID')
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/remoteControlPhone/accounts/login')
+    
+    try:
+        userDevices = UserDevice.objects.filter(user=User.objects.get(username=request.user.username), device=Device.objects.get(uniqueID=uniqueID))
+    except:
+        return ReturnDeviceNotMatchYou()
+    
+    if len(userDevices) == 0:
+        return ReturnDeviceNotMatchYou()
+    
+    messages = Messages.objects.filter(device=Device.objects.get(uniqueID=uniqueID))
+    strList = []
+    for item in messages:
+        strObj = {}
+        strObj["date_created"] = item.date_created;
+        strObj["date"] = item.date;
+        strObj["body"] = item.body;
+        strObj["address"] = item.address;
+        strList.append(strObj)
+    return HttpResponse(jason.dumps(strList))
+       
+def push_forMobile_messages(request):
+#    pdb.set_trace()
+    if request.method == 'POST':
+        print 'message'
+        try:
+            dataStr = request.body
+            dataObj = jason.loads(dataStr)
+#            check whether this device exists in current database
+            guid = dataObj['uniqueID']
+
+            _device = Device.objects.filter(uniqueID=guid)
+            if not _device:
+                return ReturnPushFromMobileCallLogsDontHaveThisDevice()
+
+            previousMessages = Messages.objects.filter(device__uniqueID=guid)
+
+            if previousMessages:
+                previousMessages.delete()
+            pdb.set_trace()
+            for message in dataObj['messages']:
+                date = message['date']
+                body = urllib2.unquote(message['body'].replace("+", "%20")).decode("utf8")
+                address = urllib2.unquote(message['address'].replace("+", "%20")).decode("utf8")
+                print 'message 1' + body
+
+                _message = Messages(device=Device.objects.get(uniqueID=guid), date=date, body=body, address=address, date_created=getCurrentUnixTimeStamp())
+                _message.save()
+            print 'message ok'
+            return ReturnOK()
+        except:
+            return ReturnPushFromMobileMessagesException()
+    else:
+        return ReturnPushFromMobileMessagesException()  
+
+
+def registerChannel(request):  
+#    pdb.set_trace()  
+    if request.method == 'POST':  
+        try:  
+            dataStr = request.body  
+            dataObj = jason.loads(dataStr)  
+  
+            uniqueID = dataObj['uniqueID']  
+            regId = dataObj['regId']  
+              
+            devices = Device.objects.filter(uniqueID=uniqueID)  
+            if not devices:  
+                return ReturnRegisterChannelNoSuchDevices()  
+          
+            pushRegistration = PushRegistration.objects.filter(device__uniqueID=uniqueID)  
+            if pushRegistration:  
+                pushRegistration.delete()  
+          
+            _PushRegistration = PushRegistration(device=Device.objects.get(uniqueID=uniqueID), regId=regId, date_created=getCurrentUnixTimeStamp())  
+            _PushRegistration.save()  
+            return ReturnOK()  
+        except:  
+            return ReturnRegisterChannelException()  
+    else:  
+        return ReturnRegisterChannelError()  
+  
+def pushRequest_fromJS(request):  
+    uniqueID = request.COOKIES.get('uniqueID')  
+    if not request.user.is_authenticated():  
+        return HttpResponseRedirect('/remoteControlPhone/accounts/login')  
+      
+    try:  
+        dataStr = request.body  
+        dataObj = jason.loads(dataStr)  
+  
+        command = dataObj['command']  
+        print command
+    except:  
+        return ReturnPushRequestFromJSException()  
+          
+    try:  
+        pushRegistration = PushRegistration.objects.filter(device=Device.objects.get(uniqueID=uniqueID))  
+    except:  
+        return ReturnNoChannelInfo()  
+    
+    pushRegistration = PushRegistration.objects.filter(device__uniqueID=uniqueID)  
+    idReg = pushRegistration[0].regId
+    print idReg + ' id'
+    dataField = {'cmd':command, 'time':getCurrentUnixTimeStamp()}
+    requstField = {'registration_ids': [idReg], 'data':dataField}
+    strReq = jason.dumps(requstField);
+    print strReq + ' req'
+    #params = urllib.urlencode(strReq)  
+    headers = {"Content-Type": "application/json",  
+            "Authorization": "key=AIzaSyD3u9AztwlSStMIwfm0pa6TMq1NQL4Qz9o"}  
+    conn = httplib.HTTPSConnection("android.googleapis.com")  
+    conn.request("POST", "/gcm/send", strReq, headers)  
+    response = conn.getresponse()  
+    print response.status, response.reason  
+  
+    data = response.read()  
+    print data
+      
+    return HttpResponse(jason.dumps({'ReturnCode': pushRegistration[0].regId + ' ' + command}))  
+
+
 #    return content
 def ReturnOK():
     return HttpResponse(jason.dumps({'ReturnCode': "200", 'Desc': "OK"}))
@@ -244,3 +430,27 @@ def ReturnPushFromMobileCallLogsException():
 
 def ReturnPushFromMobileCallLogsDontHaveThisDevice():
     return HttpResponse(jason.dumps({'ReturnCode': "90040001", 'Desc': "ReturnPushFromMobileCallLogsDontHaveThisDevice"}))
+
+def ReturnPushFromMobileContactsException():
+    return HttpResponse(jason.dumps({'ReturnCode': "90040002", 'Desc': "ReturnPushFromMobileContactsException"}))
+
+def ReturnPushFromMobileMessagesException():
+    return HttpResponse(jason.dumps({'ReturnCode': "90040003", 'Desc': "ReturnPushFromMobileMessagesException"}))
+
+
+def ReturnRegisterChannelException():  
+    return HttpResponse(jason.dumps({'ReturnCode': "90050000", 'Desc': "ReturnRegisterChannelException"}))  
+  
+def ReturnRegisterChannelError():  
+    return HttpResponse(jason.dumps({'ReturnCode': "90050001", 'Desc': "ReturnRegisterChannelError"}))  
+  
+def ReturnRegisterChannelNoSuchDevices():  
+    return HttpResponse(jason.dumps({'ReturnCode': "90050002", 'Desc': "ReturnRegisterChannelNoSuchDevices"}))  
+  
+def ReturnNoChannelInfo():  
+    return HttpResponse(jason.dumps({'ReturnCode': "90060000", 'Desc': "ReturnNoChannelInfo"}))  
+  
+def ReturnPushRequestFromJSException():  
+    return HttpResponse(jason.dumps({'ReturnCode': "90060001", 'Desc': "ReturnPushRequestFromJSException"}))  
+
+

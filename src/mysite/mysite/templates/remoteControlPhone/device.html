@@ -23,7 +23,10 @@
 				<a href="#tab1" data-toggle="tab">Call Records</a>
 			</li>
 			<li>
-				<a href="#tab2" data-toggle="tab">Messages</a>
+				<a href="#tab2" data-toggle="tab">Contacts</a>
+			</li>
+			<li>
+				<a href="#tab3" data-toggle="tab">Messages</a>
 			</li>
 		</ul>
 		<div class="tab-content">
@@ -50,10 +53,10 @@
 						<table class="table table-bordered table-hover table-striped table_callLogs">
 							<tr class="tr_callLogs">
 								<th>Call</th>
-								<th>date</th>
-								<th>duration(seconds)</th>
-								<th>number</th>
-								<th>action</th>
+								<th>Date</th>
+								<th>Duration(seconds)</th>
+								<th>Number</th>
+								<th>Action</th>
 							</tr>
 							{% for callLog in calllogs %}
 							<tr>
@@ -80,8 +83,88 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane" id="tab2"></div>
+			<div class="tab-pane" id="tab2">
+				<div class='updateStatusArea'>
+					<button class='btn btn-success updateStatusButton'>
+						Refresh
+					</button>
+					{% if contacts %}
+					<p class="updateStatusWording">
+						Last Update: {{contacts.0.date_created|print_timestamp_seconds }}
+					</p>
+					{% else %}
+					<p class="updateStatusWording">
+						There is no any contact yet in your device, click the refresh to double check.
+					</p>
+					{% endif %}
+					<div class="loadingAnimation"></div>
+				</div>
 
+				<div class="dataArea">
+					<div class="span10">
+						<table class="table table-bordered table-hover table-striped table_contacts">
+							<tr class="tr_contacts">
+								<th>Name</th>
+								<th>Number</th>
+								<th>Action</th>
+							</tr>
+							{% for contact in contacts %}
+							<tr>
+								<td>{{contact.name}}</td>
+								<td>{{contact.phone_No}}</td>
+								<td>
+									<div class="ICON_sendSMS"></div>
+									<div class="ICON_delete"></div>
+								</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div class="tab-pane" id="tab3">
+				<div class='updateStatusArea'>
+					<button class='btn btn-success updateStatusButton'>
+						Refresh
+					</button>
+					{% if messages %}
+					<p class="updateStatusWording">
+						Last Update: {{messages.0.date_created|print_timestamp_seconds }}
+					</p>
+					{% else %}
+					<p class="updateStatusWording">
+						There is no message yet in your device, click the refresh to double check.
+					</p>
+					{% endif %}
+					<div class="loadingAnimation"></div>
+				</div>
+
+				<div class="dataArea">
+					<div class="span10">
+						<table class="table table-bordered table-hover table-striped table_messages">
+							<tr class="tr_messages">
+								<th>Date</th>
+								<th>Body</th>
+								<th>Address</th>
+								<th>Action</th>
+							</tr>
+							{% for message in messages %}
+							<tr>
+								<td>{{message.date}}</td>
+								<td>{{message.body}}</td>
+								<td>{{message.address}}</td>
+								<td>
+									<div class="ICON_sendSMS"></div>
+									<div class="ICON_delete"></div>
+								</td>
+							</tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </div>

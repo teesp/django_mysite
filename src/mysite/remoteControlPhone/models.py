@@ -37,6 +37,16 @@ class CallLogs(models.Model):
     
     def __unicode__(self):
         return "device:" + self.device.uniqueID  + ";" + "type:" + self.type + ";" + "date:" + self.date  + ";" + "duration:" + self.duration + ";" + "number:" + self.number + ", date_created:" + str(self.date_created)
+
+class Messages(models.Model):
+    device = models.ForeignKey(Device)
+    date = models.CharField(max_length=1000)
+    body = models.CharField(max_length=1000)
+    address = models.CharField(max_length=1000)
+    date_created = models.CharField(max_length=1000)
+    
+    def __unicode__(self):
+        return "device:" + self.device.uniqueID  + ";"+ "date:" + self.date  + ";" + "body:" + self.body + ";" + "address:" + self.address + ", date_created:" + str(self.date_created)
     
 class PushRegistration(models.Model):
     device = models.ForeignKey(Device)
